@@ -8,7 +8,6 @@ RUN \
   rm -rf /isubata/.git && \
   wget https://github.com/tkuchiki/alp/releases/download/v0.4.0/alp_linux_amd64.zip && \
   unzip alp_linux_amd64.zip && \
-  mv alp_linux_amd64 alp && \
   mv alp /usr/local/bin/alp
 
 FROM nginx:1.10
