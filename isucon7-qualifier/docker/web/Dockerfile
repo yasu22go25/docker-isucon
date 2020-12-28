@@ -3,14 +3,13 @@ FROM alpine AS build-dev
 ARG GIT_URL=https://github.com/yasu22go25/isucon7-qualify.git
 
 RUN \
-  apk --no-cache add git && \
+  apk --no-cache add git wget unzip && \
   git clone --depth=1 $GIT_URL /isubata && \
-  rm -rf /isubata/.git \
-  wget https://github.com/tkuchiki/alp/releases/download/v0.4.0/alp_linux_amd64.zip \
-  sudo apt install unzip \
-  unzip alp_linux_amd64.zip \
-  sudo mv alp_linux_amd64 alp \
-  sudo mv alp /usr/local/bin/alp
+  rm -rf /isubata/.git && \
+  wget https://github.com/tkuchiki/alp/releases/download/v0.4.0/alp_linux_amd64.zip && \
+  unzip alp_linux_amd64.zip && \
+  mv alp_linux_amd64 alp && \
+  mv alp /usr/local/bin/alp
 
 FROM nginx:1.10
 
