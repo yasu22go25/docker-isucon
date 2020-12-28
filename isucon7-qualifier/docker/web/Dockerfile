@@ -8,16 +8,16 @@ RUN \
   git clone --depth=1 $GIT_URL /isubata && \
   rm -rf /isubata/.git
   
-RUN wget https://github.com/tkuchiki/alp/releases/download/v0.4.0/alp_linux_amd64.zip
-RUN unzip alp_linux_amd64.zip
-RUN ls
-RUN mv alp /usr/bin/alp
-
 FROM nginx:1.10
 
 COPY --from=build-dev /isubata /home/isucon/isubata
 #COPY --from=build-dev /isubata/files/app/nginx.conf /etc/nginx/conf.d/isucon.conf
 COPY isucon.conf /etc/nginx/conf.d/isucon.conf
+
+RUN wget https://github.com/tkuchiki/alp/releases/download/v0.4.0/alp_linux_amd64.zip
+RUN unzip alp_linux_amd64.zip
+RUN ls
+RUN mv alp /usr/bin/alp
 
 RUN \
   touch /etc/nginx/conf.d/log_format.conf && \
