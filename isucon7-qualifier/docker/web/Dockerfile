@@ -19,8 +19,8 @@ COPY --from=build-dev /isubata /home/isucon/isubata
 COPY isucon.conf /etc/nginx/conf.d/isucon.conf
 
 RUN \
-  touch /etc/nginx/conf.d/log_format.conf \ 
-  chmod 777 /etc/nginx/conf.d/log_format.conf \
+  touch /etc/nginx/conf.d/log_format.conf && \
+  chmod 777 /etc/nginx/conf.d/log_format.conf && \
   echo 'log_format ltsv "time:$time_local" \
                   "\thost:$remote_addr" \
                   "\tforwardedfor:$http_x_forwarded_for" \
