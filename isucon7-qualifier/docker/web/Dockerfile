@@ -2,17 +2,19 @@ FROM alpine AS build-dev
 
 ARG GIT_URL=https://github.com/yasu22go25/isucon7-qualify.git
 
-RUN apk --no-cache add git wget unzip
+RUN apk --no-cache add git
 
 RUN \
   git clone --depth=1 $GIT_URL /isubata && \
   rm -rf /isubata/.git
-  
+
 FROM nginx:1.10
 
 COPY --from=build-dev /isubata /home/isucon/isubata
 #COPY --from=build-dev /isubata/files/app/nginx.conf /etc/nginx/conf.d/isucon.conf
 COPY isucon.conf /etc/nginx/conf.d/isucon.conf
+
+RUN apk --no-cache add wget unzip
 
 RUN wget https://github.com/tkuchiki/alp/releases/download/v0.4.0/alp_linux_amd64.zip
 RUN unzip alp_linux_amd64.zip
