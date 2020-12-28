@@ -11,7 +11,7 @@ RUN \
 RUN wget https://github.com/tkuchiki/alp/releases/download/v0.4.0/alp_linux_amd64.zip
 RUN unzip alp_linux_amd64.zip
 RUN ls
-RUN mv alp /usr/local/bin/alp
+RUN mv alp /usr/bin/alp
 
 FROM nginx:1.10
 
