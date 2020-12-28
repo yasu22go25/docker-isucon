@@ -10,7 +10,15 @@ RUN \
   sudo apt install unzip \
   unzip alp_linux_amd64.zip \
   sudo mv alp_linux_amd64 alp \
-  sudo mv alp /usr/local/bin/alp \
+  sudo mv alp /usr/local/bin/alp
+
+FROM nginx:1.10
+
+COPY --from=build-dev /isubata /home/isucon/isubata
+#COPY --from=build-dev /isubata/files/app/nginx.conf /etc/nginx/conf.d/isucon.conf
+COPY isucon.conf /etc/nginx/conf.d/isucon.conf
+
+RUN \
   sudo touch /etc/nginx/conf.d/log_format.conf \ 
   sudo chmod 777 /etc/nginx/conf.d/log_format.conf \
   sudo echo 'log_format ltsv "time:$time_local" \
@@ -29,9 +37,3 @@ RUN \
                   "\tapptime:$upstream_response_time" \
                   "\tvhost:$host"; \
                   access_log /var/log/nginx/access.log ltsv;' > /etc/nginx/conf.d/log_format.conf 
-
-FROM nginx:1.10
-
-COPY --from=build-dev /isubata /home/isucon/isubata
-#COPY --from=build-dev /isubata/files/app/nginx.conf /etc/nginx/conf.d/isucon.conf
-COPY isucon.conf /etc/nginx/conf.d/isucon.conf
